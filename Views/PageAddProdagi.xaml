@@ -1,0 +1,49 @@
+﻿<Page x:Class="Apteka.Views.PageAddProdagi"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Apteka.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageAddProdagi">
+
+    <Grid Background="#FFC5C5C5" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="61">
+
+                <TextBlock Text="Номер чека" FontSize="20" HorizontalAlignment="Center" Margin="5"/>
+                <TextBox Text="{Binding IDList}" Width="200" Height="30" FontSize="16"/>
+
+                <TextBlock Text="ID Пользователя" FontSize="20" HorizontalAlignment="Center" Margin="5"/>
+                <TextBox Text="{Binding IDUser}" Width="200" Height="30" FontSize="16"/>
+
+                <TextBlock Text="ID Товара" FontSize="20" HorizontalAlignment="Center" Margin="5"/>
+                <TextBox Text="{Binding IDTovar}" Width="200" Height="30" FontSize="16"/>
+            </StackPanel>
+            
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="463,0,0,0">
+                
+                <TextBlock Text="Общая цена" FontSize="20" HorizontalAlignment="Center" Margin="5"/>
+                <TextBox Text="{Binding ProductPrice}" Width="200" Height="30" FontSize="16"/>
+
+                <TextBlock Text="Общее количество" FontSize="20" HorizontalAlignment="Center" Margin="5"/>
+                <TextBox Text="{Binding TotalAmount}" Width="200" Height="30" FontSize="16"/>
+                
+                <TextBlock Text="Дата продажи" FontSize="20" HorizontalAlignment="Center" Margin="5"/>
+                <DatePicker SelectedDate="{Binding DeliveryDate}" FontSize="10" Margin="0" HorizontalAlignment="Left" VerticalContentAlignment="Top"/>
+
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Background="#528a8e" Panel.ZIndex="-2">
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Сохранить" x:Name="Soxranit" Click="Soxranit_Click" Background="#97b6ba"  Margin="5"/>
+                <Button Content="Закрыть" x:Name="Nazad" Click="Nazad_Click" Background="#97b6ba" Margin="5"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

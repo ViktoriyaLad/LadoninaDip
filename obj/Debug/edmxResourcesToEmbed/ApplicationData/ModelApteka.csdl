@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AptekaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="AptekaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Postavshik" EntityType="AptekaModel.Postavshik" />
+    <EntitySet Name="Prodagi" EntityType="AptekaModel.Prodagi" />
+    <EntitySet Name="Role" EntityType="AptekaModel.Role" />
+    <EntitySet Name="sysdiagrams" EntityType="AptekaModel.sysdiagrams" />
+    <EntitySet Name="Tovar" EntityType="AptekaModel.Tovar" />
+    <EntitySet Name="User" EntityType="AptekaModel.User" />
+    <EntitySet Name="Vid" EntityType="AptekaModel.Vid" />
+    <AssociationSet Name="FK_Tovar_Postavshik" Association="AptekaModel.FK_Tovar_Postavshik">
+      <End Role="Postavshik" EntitySet="Postavshik" />
+      <End Role="Tovar" EntitySet="Tovar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Prodagi_Tovar" Association="AptekaModel.FK_Prodagi_Tovar">
+      <End Role="Tovar" EntitySet="Tovar" />
+      <End Role="Prodagi" EntitySet="Prodagi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Prodagi_User1" Association="AptekaModel.FK_Prodagi_User1">
+      <End Role="User" EntitySet="User" />
+      <End Role="Prodagi" EntitySet="Prodagi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rol_User" Association="AptekaModel.FK_Rol_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Role" EntitySet="Role" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tovar_Vid" Association="AptekaModel.FK_Tovar_Vid">
+      <End Role="Vid" EntitySet="Vid" />
+      <End Role="Tovar" EntitySet="Tovar" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Postavshik">
+    <Key>
+      <PropertyRef Name="IDPostavshik" />
+    </Key>
+    <Property Name="IDPostavshik" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NamePostavshik" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Telephone" Type="String" Nullable="false" MaxLength="18" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DeliveryDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Tovar" Relationship="AptekaModel.FK_Tovar_Postavshik" FromRole="Postavshik" ToRole="Tovar" />
+  </EntityType>
+  <EntityType Name="Prodagi">
+    <Key>
+      <PropertyRef Name="IDProdagi" />
+    </Key>
+    <Property Name="IDProdagi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDList" Type="Int32" Nullable="false" />
+    <Property Name="IDUser" Type="Int32" Nullable="false" />
+    <Property Name="IDTovar" Type="Int32" Nullable="false" />
+    <Property Name="DataProdagi" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ProductPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <NavigationProperty Name="Tovar" Relationship="AptekaModel.FK_Prodagi_Tovar" FromRole="Prodagi" ToRole="Tovar" />
+    <NavigationProperty Name="User" Relationship="AptekaModel.FK_Prodagi_User1" FromRole="Prodagi" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="IDRole" />
+    </Key>
+    <Property Name="IDRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Rolename" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="AptekaModel.FK_Rol_User" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Tovar">
+    <Key>
+      <PropertyRef Name="IDTovar" />
+    </Key>
+    <Property Name="IDTovar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDPostavshika" Type="Int32" Nullable="false" />
+    <Property Name="TovarName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PurchasePrice" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SalePrice" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Recipe" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BestBeforeDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IDVid" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Postavshik" Relationship="AptekaModel.FK_Tovar_Postavshik" FromRole="Tovar" ToRole="Postavshik" />
+    <NavigationProperty Name="Prodagi" Relationship="AptekaModel.FK_Prodagi_Tovar" FromRole="Tovar" ToRole="Prodagi" />
+    <NavigationProperty Name="Vid" Relationship="AptekaModel.FK_Tovar_Vid" FromRole="Tovar" ToRole="Vid" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="IDUser" />
+    </Key>
+    <Property Name="IDUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MiddleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Telephone" Type="Int32" Nullable="false" />
+    <Property Name="IDRol" Type="Int32" Nullable="false" />
+    <Property Name="UserLogin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Prodagi" Relationship="AptekaModel.FK_Prodagi_User1" FromRole="User" ToRole="Prodagi" />
+    <NavigationProperty Name="Role" Relationship="AptekaModel.FK_Rol_User" FromRole="User" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="Vid">
+    <Key>
+      <PropertyRef Name="IDVid" />
+    </Key>
+    <Property Name="IDVid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameVid" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Tovar" Relationship="AptekaModel.FK_Tovar_Vid" FromRole="Vid" ToRole="Tovar" />
+  </EntityType>
+  <Association Name="FK_Tovar_Postavshik">
+    <End Type="AptekaModel.Postavshik" Role="Postavshik" Multiplicity="1" />
+    <End Type="AptekaModel.Tovar" Role="Tovar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Postavshik">
+        <PropertyRef Name="IDPostavshik" />
+      </Principal>
+      <Dependent Role="Tovar">
+        <PropertyRef Name="IDPostavshika" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Prodagi_Tovar">
+    <End Type="AptekaModel.Tovar" Role="Tovar" Multiplicity="1" />
+    <End Type="AptekaModel.Prodagi" Role="Prodagi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tovar">
+        <PropertyRef Name="IDTovar" />
+      </Principal>
+      <Dependent Role="Prodagi">
+        <PropertyRef Name="IDTovar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Prodagi_User1">
+    <End Type="AptekaModel.User" Role="User" Multiplicity="1" />
+    <End Type="AptekaModel.Prodagi" Role="Prodagi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="IDUser" />
+      </Principal>
+      <Dependent Role="Prodagi">
+        <PropertyRef Name="IDUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rol_User">
+    <End Type="AptekaModel.User" Role="User" Multiplicity="1" />
+    <End Type="AptekaModel.Role" Role="Role" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="IDUser" />
+      </Principal>
+      <Dependent Role="Role">
+        <PropertyRef Name="IDRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tovar_Vid">
+    <End Type="AptekaModel.Vid" Role="Vid" Multiplicity="1" />
+    <End Type="AptekaModel.Tovar" Role="Tovar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vid">
+        <PropertyRef Name="IDVid" />
+      </Principal>
+      <Dependent Role="Tovar">
+        <PropertyRef Name="IDVid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
